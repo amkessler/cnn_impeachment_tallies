@@ -23,15 +23,18 @@ impeachdata <- impeachdata %>%
 
 #format date columns
 impeachdata$date_exact <- mdy(impeachdata$date_exact)
-impeachdata$date_approx_proxydate <- mdy(impeachdata$date_approx_proxydate)
+impeachdata$date_approx_month <- mdy(impeachdata$date_approx_month)
 
 #combined date column to gather exact and approximate for month derivations
 impeachdata <- impeachdata %>% 
   mutate(
-    date_comb = if_else(is.na(date_exact), date_approx_proxydate, date_exact),
+    date_comb = if_else(is.na(date_exact), date_approx_month, date_exact),
     date_month = month(date_comb),
     date_year = year(date_comb)
   )
+
+#standarize impeachment column
+impeachdata$for_impeachment <- str_to_upper(impeachdata$for_impeachment)
 
 # save results
 saveRDS(impeachdata, "processed_data/impeachdata.rds")
