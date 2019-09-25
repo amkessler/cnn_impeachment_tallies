@@ -36,6 +36,10 @@ impeachdata <- impeachdata %>%
 #standarize impeachment column
 impeachdata$for_impeachment <- str_to_upper(impeachdata$for_impeachment)
 
+#count yes/no tally
+impeachdata %>% 
+  count(for_impeachment)
+
 # save results
 saveRDS(impeachdata, "processed_data/impeachdata.rds")
 
