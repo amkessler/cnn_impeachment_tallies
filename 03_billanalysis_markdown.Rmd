@@ -1,5 +1,5 @@
 ---
-title: "bill analysis"
+title: "Impeachment Analysis"
 author: "AK"
 date: ""
 output: html_document
@@ -14,7 +14,7 @@ library(summarytools)
 library(gt)
 options(scipen = 999)
 
-working_joined <- readRDS("output/working_joined_hr1296.rds")
+working_joined <- readRDS("output/joined_impeachment.rds")
 
 
 ```
@@ -27,8 +27,8 @@ Trump- or Hillary-won districts in 2016 (R or D)
 ```{r, echo=FALSE}
 
 print(ctable(working_joined$p16winningparty,
-             working_joined$stance, 
-             prop = "n", headings = FALSE), method = "render")
+             working_joined$for_impeachment, 
+             prop = "r", headings = FALSE), method = "render")
 
 
 
@@ -39,8 +39,8 @@ GDP in district vs. national average
 
 ```{r, echo=FALSE}
 
-print(ctable(working_joined$gdp_abovebelow_natlavg,
-             working_joined$stance, 
+print(ctable(working_joined$gdp_above_national,
+             working_joined$for_impeachment, 
              prop = "n", headings = FALSE), method = "render")
 
 
@@ -51,8 +51,8 @@ Percentage with bachelor's degree or higher vs. national average
 
 ```{r, echo=FALSE}
 
-print(ctable(working_joined$pct.ed.college.all.abovebelow.natl,
-             working_joined$stance, 
+print(ctable(working_joined$pct_bachelors_compared_to_national,
+             working_joined$for_impeachment, 
              prop = "n", headings = FALSE), method = "render")
 
 
@@ -63,8 +63,8 @@ Percentage of non-white population vs. national average
 
 ```{r, echo=FALSE}
 
-print(ctable(working_joined$pct.race.nonwhite.abovebelow.natl,
-             working_joined$stance, 
+print(ctable(working_joined$pct_nonwhite_compared_to_national,
+             working_joined$for_impeachment, 
              prop = "n", headings = FALSE), method = "render")
 
 
@@ -75,8 +75,8 @@ Is more than 20% of the district's area considered rural
 
 ```{r, echo=FALSE}
 
-print(ctable(working_joined$pct.rural.above20,
-             working_joined$stance, 
+print(ctable(working_joined$rural_pop_above20pct,
+             working_joined$for_impeachment, 
              prop = "n", headings = FALSE), method = "render")
 
 ```
@@ -87,7 +87,7 @@ Margins
 ```{r}
 
 print(ctable(working_joined$margin_flag,
-             working_joined$stance, 
+             working_joined$for_impeachment, 
              prop = "r", headings = FALSE), method = "render")
 
 
@@ -98,67 +98,67 @@ print(ctable(working_joined$margin_flag,
 
 
 
-## Dems from Trump Districts only
+<!-- ## Dems from Trump Districts only -->
 
-```{r}
-trump_dists_only <- working_joined %>% 
-  filter(p16winningparty == "R")
+<!-- ```{r} -->
+<!-- trump_dists_only <- working_joined %>%  -->
+<!--   filter(p16winningparty == "R") -->
 
-```
+<!-- ``` -->
 
-```{r}
+<!-- ```{r} -->
 
-print(ctable(trump_dists_only$medincome.abovebelow.natl,
-             trump_dists_only$stance, 
-             prop = "r", headings = FALSE), method = "render")
-
-
-```
+<!-- print(ctable(trump_dists_only$medincome.abovebelow.natl, -->
+<!--              trump_dists_only$stance,  -->
+<!--              prop = "r", headings = FALSE), method = "render") -->
 
 
-```{r}
-
-print(ctable(trump_dists_only$pct.ed.college.all.abovebelow.natl,
-             trump_dists_only$stance, 
-             prop = "r", headings = FALSE), method = "render")
+<!-- ``` -->
 
 
-```
+<!-- ```{r} -->
 
-```{r}
-
-print(ctable(trump_dists_only$margin_flag,
-             trump_dists_only$stance, 
-             prop = "r", headings = FALSE), method = "render")
+<!-- print(ctable(trump_dists_only$pct.ed.college.all.abovebelow.natl, -->
+<!--              trump_dists_only$stance,  -->
+<!--              prop = "r", headings = FALSE), method = "render") -->
 
 
-```
+<!-- ``` -->
+
+<!-- ```{r} -->
+
+<!-- print(ctable(trump_dists_only$margin_flag, -->
+<!--              trump_dists_only$stance,  -->
+<!--              prop = "r", headings = FALSE), method = "render") -->
 
 
-#### Dems on the bill from trump districts
-
-```{r}
-
-trump_dists_onbill <- working_joined %>% 
-  filter(p16winningparty == "R",
-         stance == "sponsoring")
-
-# view(dfSummary(trump_dists_onbill))
+<!-- ``` -->
 
 
-```
+<!-- #### Dems on the bill from trump districts -->
+
+<!-- ```{r} -->
+
+<!-- trump_dists_onbill <- working_joined %>%  -->
+<!--   filter(p16winningparty == "R", -->
+<!--          stance == "sponsoring") -->
+
+<!-- # view(dfSummary(trump_dists_onbill)) -->
+
+
+<!-- ``` -->
 
 
 
-#### Dems OFF the bill from trump districts
+<!-- #### Dems OFF the bill from trump districts -->
 
-```{r}
+<!-- ```{r} -->
 
-trump_dists_offbill <- working_joined %>% 
-  filter(p16winningparty == "R",
-         stance == "not_sponsoring")
+<!-- trump_dists_offbill <- working_joined %>%  -->
+<!--   filter(p16winningparty == "R", -->
+<!--          stance == "not_sponsoring") -->
 
-# view(dfSummary(trump_dists_offbill))
+<!-- # view(dfSummary(trump_dists_offbill)) -->
 
 
-```
+<!-- ``` -->
