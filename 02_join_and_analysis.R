@@ -94,6 +94,16 @@ working_joined %>%
   count(for_impeachment)
 
 
+#fill in NAs for impeachment with NO for ease of use
+working_joined <- working_joined %>% 
+  mutate(
+    for_impeachment = case_when(
+      for_impeachment == "YES" ~ for_impeachment,
+      TRUE ~ "NO"
+    )
+  )
+  
+
 #save results
 writexl::write_xlsx(working_joined, "output/joined_impeachment.xlsx")
 saveRDS(working_joined, "output/joined_impeachment.rds")
