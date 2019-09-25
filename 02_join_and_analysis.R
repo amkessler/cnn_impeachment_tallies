@@ -119,6 +119,29 @@ ctable(working_joined$gdp_above_national, working_joined$for_impeachment, prop =
 ctable(working_joined$gdp_above_national, working_joined$for_impeachment, prop = "n")
 
 
+#income
+ctable(working_joined$median_income_compared_to_national, working_joined$for_impeachment, prop = "r")
+ctable(working_joined$median_income_compared_to_national, working_joined$for_impeachment, prop = "c")
+
+
+#diversity
+ctable(working_joined$pct_nonwhite_compared_to_national, working_joined$for_impeachment, prop = "r")
+ctable(working_joined$pct_nonwhite_compared_to_national, working_joined$for_impeachment, prop = "c")
+
+#rural
+ctable(working_joined$rural_pop_above20pct, working_joined$for_impeachment, prop = "r")
+ctable(working_joined$rural_pop_above20pct, working_joined$for_impeachment, prop = "c")
+
+#margin flag
+ctable(working_joined$margin_flag, working_joined$for_impeachment, prop = "r")
+ctable(working_joined$margin_flag, working_joined$for_impeachment, prop = "c")
+
+#top 10 by trump percentage of vote
+working_joined %>% 
+  arrange(desc(trump_percent)) %>% 
+  head(10)
+
+
 
 # summarytools::tb()
 
