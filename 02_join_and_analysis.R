@@ -94,6 +94,15 @@ working_joined %>%
   count(for_impeachment)
 
 
+#add time-phase based columns to capture before big deluge and after
+working_joined <- working_joined %>% 
+  mutate(
+    sept23mark = if_else(date_comb >= "2019-09-23", "On/After Sept 23", "Before Sept 23"),
+    sept24mark = if_else(date_comb >= "2019-09-24", "On/After Sept 24", "Before Sept 24")
+  ) 
+
+
+
 #fill in NAs for impeachment with NO for ease of use
 working_joined <- working_joined %>% 
   mutate(
