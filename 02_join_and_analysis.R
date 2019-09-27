@@ -147,9 +147,9 @@ ctable(working_joined$margin_flag, working_joined$for_impeachment, prop = "r")
 ctable(working_joined$margin_flag, working_joined$for_impeachment, prop = "c")
 
 #top 10 by trump percentage of vote
-working_joined %>% 
+top_trump_dists <- working_joined %>% 
   arrange(desc(trump_percent)) %>% 
-  head(10)
+  head(25)
 
 
 
@@ -157,64 +157,41 @@ working_joined %>%
 
 glimpse(working_joined)
 
-# 
-# # groupings for export to spreadsheet for gfx ####
-# 
-# prezresults2016 <- working_joined %>%
-#   count(p16winningparty, stance)
-# 
-# gdp <- working_joined %>%
-#   count(gdp_abovebelow_natlavg, stance)
-# 
-# college_degree <- working_joined %>%
-#   count(pct.ed.college.all.abovebelow.natl, stance)
-# 
-# nonwhite_pop <- working_joined %>%
-#   count(pct.race.nonwhite.abovebelow.natl, stance)
-# 
-# rural_area <- working_joined %>%
-#   count(pct.rural.above20, stance)
-# 
-# margin_5_or_less <- working_joined %>%
-#   count(margin_flag, stance)
-# 
-# 
-# #the same with prezresults
-# 
-# gdp_andprezresults <- working_joined %>%
-#   count(p16winningparty, gdp_abovebelow_natlavg, stance)
-# 
-# college_degree_andprezresults <- working_joined %>%
-#   count(p16winningparty, pct.ed.college.all.abovebelow.natl, stance)
-# 
-# nonwhite_pop_andprezresults <- working_joined %>%
-#   count(p16winningparty, pct.race.nonwhite.abovebelow.natl, stance)
-# 
-# rural_area_andprezresults <- working_joined %>%
-#   count(p16winningparty, pct.rural.above20, stance)
-# 
-# margin_5_or_less_withprez <- working_joined %>%
-#   count(p16winningparty, margin_flag, stance)
-# 
-# 
-# 
-# #now make a list to feed to writexl
-# list_of_breakdowns <- list(prezresults2016 = prezresults2016,
-#                            gdp_vs_nationalavg = gdp,
-#                            college_vs_nationalavg = college_degree,
-#                            nonwhite_vs_nationalavg = nonwhite_pop,
-#                            rural_morethanfifth = rural_area,
-#                            margin_5_or_less = margin_5_or_less,
-#                            gdp_andprezresults = gdp_andprezresults,
-#                            college_degree_andprezresults = college_degree_andprezresults,
-#                            nonwhite_pop_andprezresults = nonwhite_pop_andprezresults,
-#                            rural_area_andprezresults = rural_area_andprezresults,
-#                            margin_5_or_less_withprez = margin_5_or_less_withprez
-#                            )
-# 
-# writexl::write_xlsx(list_of_breakdowns, "output/groupings_for_dems_hr1296.xlsx")
-# 
-# 
+
+# groupings for export to spreadsheet for gfx ####
+
+prezresults2016 <- working_joined %>%
+  count(p16winningparty, for_impeachment)
+
+gdp <- working_joined %>%
+  count(gdp_above_national, for_impeachment)
+
+college_degree <- working_joined %>%
+  count(pct_bachelors_compared_to_national, for_impeachment)
+
+nonwhite_pop <- working_joined %>%
+  count(pct_nonwhite_compared_to_national, for_impeachment)
+
+rural_area <- working_joined %>%
+  count(rural_pop_above20pct, for_impeachment)
+
+margin_5_or_less <- working_joined %>%
+  count(margin_flag, for_impeachment)
+
+
+
+#now make a list to feed to writexl
+list_of_breakdowns <- list(prezresults2016 = prezresults2016,
+                           gdp_vs_nationalavg = gdp,
+                           college_vs_nationalavg = college_degree,
+                           nonwhite_vs_nationalavg = nonwhite_pop,
+                           rural_morethanfifth = rural_area,
+                           margin_5_or_less = margin_5_or_less
+                          )
+
+writexl::write_xlsx(list_of_breakdowns, "output/groupings_dems_impeachment.xlsx")
+
+
 # 
 # 
 # working_joined %>%
