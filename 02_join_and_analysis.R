@@ -102,7 +102,13 @@ working_joined <- working_joined %>%
       TRUE ~ "NO"
     )
   )
-  
+
+#add a measure for Trump margin over Hillary
+working_joined <- working_joined %>% 
+  mutate(
+    trump_margin = trump_percent - clinton_percent
+    )
+
 
 #save results
 writexl::write_xlsx(working_joined, "output/joined_impeachment.xlsx")
@@ -148,7 +154,7 @@ ctable(working_joined$margin_flag, working_joined$for_impeachment, prop = "c")
 
 #top 10 by trump percentage of vote
 top_trump_dists <- working_joined %>% 
-  arrange(desc(trump_percent)) %>% 
+  arrange(desc(trump_margin)) %>% 
   head(25)
 
 
@@ -160,23 +166,55 @@ glimpse(working_joined)
 
 # groupings for export to spreadsheet for gfx ####
 
+sept_daily_allyes <- working_joined %>% 
+  filter(date_month == "9",
+         date_year == "2019") %>% 
+  count(date_exact) %>% 
+  arrange(date_exact)
+
+sept_daily_prezresults16 <- working_joined %>% 
+  filter(date_month == "9",
+         date_year == "2019") %>% 
+  count(date_exact, p16winningparty) %>% 
+  arrange(date_exact)
+
+sept_daily_college <- working_joined %>% 
+  filter(date_month == "9",
+         date_year == "2019") %>% 
+  count(date_exact, pct_bachelors_compared_to_national) %>% 
+  arrange(date_exact)
+
+sept_daily_gdp <- working_joined %>% 
+  filter(date_month == "9",
+         date_year == "2019") %>% 
+  count(date_exact, gdp_above_national) %>% 
+  arrange(date_exact)
+
+
+
 prezresults2016 <- working_joined %>%
-  count(p16winningparty, for_impeachment)
+  count(p16winningparty, for_impeachment) %>% 
+  arrange(for_impeachment)
 
 gdp <- working_joined %>%
-  count(gdp_above_national, for_impeachment)
+  count(gdp_above_national, for_impeachment) %>% 
+  arrange(for_impeachment)
 
 college_degree <- working_joined %>%
-  count(pct_bachelors_compared_to_national, for_impeachment)
+  count(pct_bachelors_compared_to_national, for_impeachment) %>% 
+  arrange(for_impeachment)
 
 nonwhite_pop <- working_joined %>%
-  count(pct_nonwhite_compared_to_national, for_impeachment)
+  count(pct_nonwhite_compared_to_national, for_impeachment) %>% 
+  arrange(for_impeachment)
 
 rural_area <- working_joined %>%
-  count(rural_pop_above20pct, for_impeachment)
+  count(rural_pop_above20pct, for_impeachment) %>% 
+  arrange(for_impeachment)
 
 margin_5_or_less <- working_joined %>%
-  count(margin_flag, for_impeachment)
+  count(margin_flag, for_impeachment) %>% 
+  arrange(for_impeachment)
 
 
 
@@ -186,7 +224,12 @@ list_of_breakdowns <- list(prezresults2016 = prezresults2016,
                            college_vs_nationalavg = college_degree,
                            nonwhite_vs_nationalavg = nonwhite_pop,
                            rural_morethanfifth = rural_area,
-                           margin_5_or_less = margin_5_or_less
+                           margin_5_or_less = margin_5_or_less,
+                           top_trump_dists = top_trump_dists,
+                           sept_daily_allyes = sept_daily_allyes,
+                           sept_daily_prezresults16 = sept_daily_prezresults16,
+                           sept_daily_college = sept_daily_college,
+                           sept_daily_gdp = sept_daily_gdp
                           )
 
 writexl::write_xlsx(list_of_breakdowns, "output/groupings_dems_impeachment.xlsx")
