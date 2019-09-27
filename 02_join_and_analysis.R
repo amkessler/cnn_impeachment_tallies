@@ -216,6 +216,8 @@ margin_5_or_less <- working_joined %>%
   count(margin_flag, for_impeachment) %>% 
   arrange(for_impeachment)
 
+full_list_of_nos <- working_joined %>% 
+  filter(for_impeachment == "NO")
 
 
 #now make a list to feed to writexl
@@ -229,7 +231,8 @@ list_of_breakdowns <- list(prezresults2016 = prezresults2016,
                            sept_daily_allyes = sept_daily_allyes,
                            sept_daily_prezresults16 = sept_daily_prezresults16,
                            sept_daily_college = sept_daily_college,
-                           sept_daily_gdp = sept_daily_gdp
+                           sept_daily_gdp = sept_daily_gdp,
+                           full_list_of_nos = full_list_of_nos
                           )
 
 writexl::write_xlsx(list_of_breakdowns, "output/groupings_dems_impeachment.xlsx")
