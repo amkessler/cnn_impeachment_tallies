@@ -28,7 +28,7 @@ Trump- or Hillary-won districts in 2016 (R or D)
 
 print(ctable(working_joined$p16winningparty,
              working_joined$for_impeachment, 
-             prop = "r", headings = FALSE), method = "render")
+             prop = "c", headings = FALSE), method = "render")
 
 
 
