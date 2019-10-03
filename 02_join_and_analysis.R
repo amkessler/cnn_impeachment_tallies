@@ -286,7 +286,8 @@ d2 <- d + labs(title="Holdouts by 2016 presidential result",
   theme(plot.title = element_text(hjust = 0.5)) +
   scale_fill_manual(values=cbPalette) +
   # theme(legend.title=element_blank()) +
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  scale_y_continuous(breaks= pretty_breaks()) #this makes it just whole numbers on the y axis
 
 d2
 
@@ -331,7 +332,8 @@ d2 <- d + labs(title="Holdouts: GDP vs. national average",
   theme(plot.title = element_text(hjust = 0.5)) +
   scale_fill_manual(values=cbPalette) +
   # theme(legend.title=element_blank()) +
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  scale_y_continuous(breaks= pretty_breaks()) #this makes it just whole numbers on the y axis
 
 d2
 
@@ -375,7 +377,8 @@ d2 <- d + labs(title="Holdouts: College education vs. national average",
   theme(plot.title = element_text(hjust = 0.5)) +
   scale_fill_manual(values=cbPalette) +
   # theme(legend.title=element_blank()) +
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  scale_y_continuous(breaks= pretty_breaks()) #this makes it just whole numbers on the y axis
 
 d2
 
