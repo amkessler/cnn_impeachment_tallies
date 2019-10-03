@@ -2,6 +2,12 @@ library(tidyverse)
 library(janitor)
 library(lubridate)
 library(summarytools)
+library(tidyverse)
+library(plotly)
+library(widgetframe)
+library(scales)
+library(zoo)
+options(scipen = 999)
 
 # run step 01 to download new version
 # source("01_load_impeach.R")
@@ -238,37 +244,200 @@ list_of_breakdowns <- list(prezresults2016 = prezresults2016,
 writexl::write_xlsx(list_of_breakdowns, "output/groupings_dems_impeachment.xlsx")
 
 
+
+
+#### CHARTS #### --------------------------------------------------
+
+
+glimpse(prezresults2016)
+
+nos_prezresults2016 <- prezresults2016 %>% 
+  filter(for_impeachment == "NO") %>% 
+  mutate(
+    p16winningparty = case_when(
+      p16winningparty == "D" ~ "Clinton",
+      p16winningparty == "R" ~ "Trump"
+    ),
+    p16winningparty = as_factor(p16winningparty)
+  )
+
+nos_prezresults2016
+
+## bar chart
+p <- ggplot(data = nos_prezresults2016, aes(x = p16winningparty, y = n)) +
+  geom_col()
+p
+
+
+d <- ggplot(data = nos_prezresults2016, aes(x = p16winningparty, y = n, fill = p16winningparty)) +
+  geom_col() + coord_flip() + theme_minimal()
+
+d
+
+# The palette with grey:
+cbPalette <- c("#1A6AFB", "#f5425a")
+# To use for fills, add
+# scale_fill_manual(values=cbPalette)
+
+d2 <- d + labs(title="Holdouts by 2016 presidential result",
+               # subtitle = "A subtitle",
+               caption = "Source: Census, Election Data, CNN analysis",
+               x ="", y = "") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_fill_manual(values=cbPalette) +
+  # theme(legend.title=element_blank()) +
+  theme(legend.position = "none")
+
+d2
+
+dd <- ggplotly(d2) 
+
+dd_nomenu <- dd %>% config(displayModeBar = FALSE)
+dd_nomenu
+
+#save as embeddable format
+# htmlwidgets::saveWidget(frameableWidget(dd), 'demtopzip_plt.html')
+htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'chart_impeachholdouts_byprez16.html')
+
+
+
+# GDP
+
+glimpse(gdp)
+
+nos_gdp <- gdp %>% 
+  filter(for_impeachment == "NO") %>% 
+  mutate(
+    gdp_above_national = as_factor(gdp_above_national)
+  )
+
+nos_gdp
+
+## bar chart
+d <- ggplot(data = nos_gdp, aes(x = gdp_above_national, y = n, fill = gdp_above_national)) +
+  geom_col() + coord_flip() + theme_minimal()
+
+d
+
+# The palette:
+cbPalette <- c("#748843", "#da9432")
+# To use for fills, add
+# scale_fill_manual(values=cbPalette)
+
+d2 <- d + labs(title="Holdouts: GDP vs. national average",
+               # subtitle = "A subtitle",
+               caption = "CNN analysis",
+               x ="", y = "") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_fill_manual(values=cbPalette) +
+  # theme(legend.title=element_blank()) +
+  theme(legend.position = "none")
+
+d2
+
+dd <- ggplotly(d2) 
+
+dd_nomenu <- dd %>% config(displayModeBar = FALSE)
+dd_nomenu
+
+#save as embeddable format
+# htmlwidgets::saveWidget(frameableWidget(dd), 'demtopzip_plt.html')
+htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'chart_impeachholdouts_bygdp.html')
+
+
+# Education
+
+glimpse(college_degree)
+
+nos_college_degree <- college_degree %>% 
+  filter(for_impeachment == "NO") %>% 
+  mutate(
+    pct_bachelors_compared_to_national = as_factor(pct_bachelors_compared_to_national)
+  )
+
+nos_college_degree
+
+## bar chart
+d <- ggplot(data = nos_college_degree, aes(x = pct_bachelors_compared_to_national, y = n, fill = pct_bachelors_compared_to_national)) +
+  geom_col() + coord_flip() + theme_minimal()
+
+d
+
+# The palette:
+cbPalette <- c("#748843", "#da9432")
+# To use for fills, add
+# scale_fill_manual(values=cbPalette)
+
+d2 <- d + labs(title="Holdouts: College education vs. national average",
+               # subtitle = "A subtitle",
+               caption = "CNN analysis",
+               x ="", y = "") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_fill_manual(values=cbPalette) +
+  # theme(legend.title=element_blank()) +
+  theme(legend.position = "none")
+
+d2
+
+dd <- ggplotly(d2) 
+
+dd_nomenu <- dd %>% config(displayModeBar = FALSE)
+dd_nomenu
+
+#save as embeddable format
+# htmlwidgets::saveWidget(frameableWidget(dd), 'demtopzip_plt.html')
+htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'chart_impeachholdouts_byeducation.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 
 # 
-# working_joined %>%
-#   filter(margin_flag == "5_points_or_less")
+# ###work on labeling
+# p <- ggplot(data = gender_pct, aes(x = state, y = percentage, fill = subgroup)) +
+#   geom_col(position = "dodge")
+# p
 # 
 # 
-# ###
+# d <- ggplot(data = gender_pct, aes(x = state, y = percentage, fill = subgroup)) +
+#   geom_col(position = "dodge") + coord_flip() + theme_minimal()
 # 
-# working_joined %>%
-#   count(position)
+# d
 # 
-# working_joined %>%
-#   count(p16winningparty)
+# # The palette with grey:
+# cbPalette <- c("#448512","#999999")
+# # To use for fills, add
+# # scale_fill_manual(values=cbPalette)
 # 
-# working_joined %>%
-#   count(keyrace_rating)
+# d2 <- d + labs(title="Early vote percentage, by gender",
+#                # subtitle = "A subtitle",
+#                caption = "Source: Catalist, CNN analysis",
+#                x ="", y = "") +
+#   theme(plot.title = element_text(hjust = 0.5)) +
+#   scale_fill_manual(values=cbPalette) +
+#   theme(legend.title=element_blank())
 # 
-# working_joined %>%
-#   count(flips)
+# d2
 # 
-# working_joined %>%
-#   count(pct.ed.college.all.abovebelow.natl)
+# dd <- ggplotly(d2) 
 # 
-# working_joined %>%
-#   count(medincome.abovebelow.natl)
+# dd_nomenu <- dd %>% config(displayModeBar = FALSE)
+# dd_nomenu
 # 
-# working_joined %>%
-#   count(pct.race.nonwhite.abovebelow.natl)
-# 
-# 
-# working_joined %>%
-#   count(p16winningparty, pct.ed.college.all.abovebelow.natl)
-# 
+# #save as embeddable format
+# # htmlwidgets::saveWidget(frameableWidget(dd), 'demtopzip_plt.html')
+# htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'chart_earlyvote_bygender_110518.html')
 # 
