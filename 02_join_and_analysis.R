@@ -393,8 +393,39 @@ htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'chart_impeachholdouts_byedu
 
 
 
+### Sept days - ALL
+
+sept_daily_allyes
+
+sept_daily_allyes <- sept_daily_allyes %>% 
+  rename(date = date_exact)
+
+## bar chart
+d <- ggplot(data = sept_daily_allyes, aes(x = date, y = n)) +
+  geom_col() + 
+  theme_minimal()
+
+d
 
 
+d2 <- d + labs(title="Title",
+               # subtitle = "A subtitle",
+               caption = "CNN analysis",
+               x ="", y = "") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(legend.position = "none") #+
+  # scale_y_continuous(breaks= pretty_breaks()) #this makes it just whole numbers on the y axis
+
+d2
+
+dd <- ggplotly(d2) 
+
+dd_nomenu <- dd %>% config(displayModeBar = FALSE)
+dd_nomenu
+
+#save as embeddable format
+# htmlwidgets::saveWidget(frameableWidget(dd), 'demtopzip_plt.html')
+htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'chart_yesonimpeachment_allsept.html')
 
 
 
