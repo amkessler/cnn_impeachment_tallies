@@ -344,7 +344,8 @@ dd_nomenu
 
 #save as embeddable format
 # htmlwidgets::saveWidget(frameableWidget(dd), 'demtopzip_plt.html')
-htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'chart_impeachholdouts_bygdp.html')
+
+# htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'chart_impeachholdouts_bygdp.html')
 
 
 # Education
@@ -389,7 +390,8 @@ dd_nomenu
 
 #save as embeddable format
 # htmlwidgets::saveWidget(frameableWidget(dd), 'demtopzip_plt.html')
-htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'chart_impeachholdouts_byeducation.html')
+
+# htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'chart_impeachholdouts_byeducation.html')
 
 
 
@@ -425,7 +427,8 @@ dd_nomenu
 
 #save as embeddable format
 # htmlwidgets::saveWidget(frameableWidget(dd), 'demtopzip_plt.html')
-htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'chart_yesonimpeachment_allsept.html')
+
+# htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'chart_yesonimpeachment_allsept.html')
 
 
 
