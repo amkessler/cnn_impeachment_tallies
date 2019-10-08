@@ -345,7 +345,7 @@ dd_nomenu
 #save as embeddable format
 # htmlwidgets::saveWidget(frameableWidget(dd), 'demtopzip_plt.html')
 
-# htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'chart_impeachholdouts_bygdp.html')
+htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'chart_impeachholdouts_bygdp.html')
 
 
 # Education
@@ -391,7 +391,7 @@ dd_nomenu
 #save as embeddable format
 # htmlwidgets::saveWidget(frameableWidget(dd), 'demtopzip_plt.html')
 
-# htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'chart_impeachholdouts_byeducation.html')
+htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'chart_impeachholdouts_byeducation.html')
 
 
 
@@ -425,8 +425,6 @@ dd <- ggplotly(d2)
 dd_nomenu <- dd %>% config(displayModeBar = FALSE)
 dd_nomenu
 
-#save as embeddable format
-# htmlwidgets::saveWidget(frameableWidget(dd), 'demtopzip_plt.html')
 
 # htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'chart_yesonimpeachment_allsept.html')
 
@@ -438,43 +436,3 @@ dd_nomenu
 
 
 
-
-
-
-# 
-# 
-# ###work on labeling
-# p <- ggplot(data = gender_pct, aes(x = state, y = percentage, fill = subgroup)) +
-#   geom_col(position = "dodge")
-# p
-# 
-# 
-# d <- ggplot(data = gender_pct, aes(x = state, y = percentage, fill = subgroup)) +
-#   geom_col(position = "dodge") + coord_flip() + theme_minimal()
-# 
-# d
-# 
-# # The palette with grey:
-# cbPalette <- c("#448512","#999999")
-# # To use for fills, add
-# # scale_fill_manual(values=cbPalette)
-# 
-# d2 <- d + labs(title="Early vote percentage, by gender",
-#                # subtitle = "A subtitle",
-#                caption = "Source: Catalist, CNN analysis",
-#                x ="", y = "") +
-#   theme(plot.title = element_text(hjust = 0.5)) +
-#   scale_fill_manual(values=cbPalette) +
-#   theme(legend.title=element_blank())
-# 
-# d2
-# 
-# dd <- ggplotly(d2) 
-# 
-# dd_nomenu <- dd %>% config(displayModeBar = FALSE)
-# dd_nomenu
-# 
-# #save as embeddable format
-# # htmlwidgets::saveWidget(frameableWidget(dd), 'demtopzip_plt.html')
-# htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'chart_earlyvote_bygender_110518.html')
-# 
