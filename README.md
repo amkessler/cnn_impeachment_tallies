@@ -1,1 +1,1 @@
-# cnn_impeachment_tallies
+# impeachment_tallies
